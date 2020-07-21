@@ -1,4 +1,20 @@
 import React, {useState} from 'react'
+import styled from 'styled-components'
+
+const TeamStyled = styled.div`
+
+border: 1px solid black;
+width: 35%;
+max-width:100%;
+margin: 10px;
+
+`
+
+const CenterDiv = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+`
 
 function Team (props) {
     const {teamMember} = props
@@ -7,7 +23,9 @@ function Team (props) {
         return <h3>Error</h3>
     }
     return (
-        <div>Team Placeholder
+        <CenterDiv>
+         
+            <TeamStyled>
         <p>
         {teamMember.name}
         </p>
@@ -17,7 +35,8 @@ function Team (props) {
         <p>
             {teamMember.role}
         </p>
-        </div>
+        </TeamStyled>
+        </CenterDiv>
     )
 }
 
