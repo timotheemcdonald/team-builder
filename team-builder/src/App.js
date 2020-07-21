@@ -5,12 +5,12 @@ import Form from './Form'
 import { v4 as uuid } from 'uuid'
 import Team from './Team'
 
-const testTeamList = {
+const testTeamList = [{
   id: uuid(),
   name: 'test',
   email: 'test@test.com',
   role: 'tester'
-}
+}]
 
 const blankFormValues = {
   name:'',
@@ -32,7 +32,7 @@ const fakeAxiosPost = (url, {name, email, role}) => {
 
 function App() {
 
-  const [teamList, setTeamList] = useState([])
+  const [teamList, setTeam] = useState([])
   const [formValue, setFormValue] = useState(blankFormValues)
 
   const updateForm = (inputName, inputValue) => {
@@ -52,11 +52,12 @@ function App() {
 
     fakeAxiosPost('fakeApi.com', newTeamMember)
     .then(value => {
-      console.log('happy path start')
+      // console.log('happy path start')
       const newFromApi = value.data
       console.log(newFromApi)
-      console.log(teamList)
-      setTeamList([newFromApi,...teamList])
+      // console.log(teamList)
+  
+      setTeam([newFromApi, ...teamList])
       setFormValue(blankFormValues)
     })
     .catch( error => {
@@ -64,8 +65,9 @@ function App() {
     })
   }
 
+
   useEffect(() => {
-    fakeAxiosGet('fakeApi.com').then(value => setTeamList(value.data))
+    fakeAxiosGet('fakeApi.com').then(value => setTeam(value.data))
   }, [])
 
   return (
@@ -75,7 +77,7 @@ function App() {
       update={updateForm} 
       submit={submitForm} />
 
-     {[teamList].map(values => {
+     {teamList.map(values => {
        return (
         <Team key={values.id} teamMember={values} />
        )
